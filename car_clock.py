@@ -4,7 +4,7 @@ from datetime import datetime
 
 # List of OS/distro names corresponding to each hour
 os_names = [
-    "Mercedes", "Peugeot", "Volkswagen", "KIA", "Renault", "Hyundai",
+    "Mercedes", "Peugeot", "McLaren", "McLaren", "McLaren", "Hyundai",
     "Audi", "Honda", "Hyundai", "McLaren", "Fiat", "BMW"
 ]
 
