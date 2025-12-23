@@ -4,8 +4,8 @@ from datetime import datetime
 
 # List of OS/distro names corresponding to each hour
 os_names = [
-    "Mercedes", "Peugeot", "Cadillac", "Toyota", "Porche", "Hyundai",
-    "Audi", "Honda", "Ford", "McLaren", "Fiat", "BMW"
+    "Mercedes", "Honda", "Cadillac", "Toyota", "Porche", "Hyundai",
+    "Audi", "Peugeot", "Ford", "BMW", "Fiat", "McLaren"
 ]
 
 def draw_os_clock():
