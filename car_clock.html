@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Car Clock</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at center, #111, #000);
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+    .clock {
+        position: relative;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #1a1a1a 60%, #000 100%);
+        border: 6px solid rgba(255,255,255,0.15);
+        box-shadow: 0 0 50px rgba(255,255,255,0.1),
+                    inset 0 0 40px rgba(255,255,255,0.05);
+    }
+
+    .brand {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transform: rotate(var(--rotation));
+        font-weight: bold;
+        color: #ffffff;
+        text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        font-size: 14px;
+    }
+
+    .brand span {
+        display: inline-block;
+        transform: rotate(calc(-1 * var(--rotation)));
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        translate: -50% 0;
+        width: 120px;
+    }
+
+    .hand {
+        --rotation: 0;
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        transform-origin: bottom;
+        transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg));
+        border-radius: 10px;
+    }
+
+    .hour {
+        width: 6px;
+        height: 120px;
+        background: red;
+        box-shadow: 0 0 15px red;
+    }
+
+    .minute {
+        width: 4px;
+        height: 170px;
+        background: #00bfff;
+        box-shadow: 0 0 15px #00bfff;
+    }
+
+    .second {
+        width: 2px;
+        height: 190px;
+        background: white;
+        box-shadow: 0 0 15px white;
+    }
+
+    .center-dot {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: white;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 15px white;
+    }
+
+    h1 {
+        position: absolute;
+        top: 40px;
+        color: white;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 300;
+    }
+</style>
+</head>
+<body>
+
+<h1>Car Clock</h1>
+
+<div class="clock" id="clock">
+    <div class="hand hour" id="hour-hand"></div>
+    <div class="hand minute" id="minute-hand"></div>
+    <div class="hand second" id="second-hand"></div>
+    <div class="center-dot"></div>
+</div>
+
+<script>
+const brands = [
+    "Mercedes", "Honda", "Cadillac", "Toyota",
+    "Porsche", "Hyundai", "Audi", "Peugeot",
+    "Ford", "BMW", "Fiat", "McLaren"
+];
+
+const clock = document.getElementById("clock");
+
+// Create brand labels
+brands.forEach((brand, i) => {
+    const div = document.createElement("div");
+    div.className = "brand";
+    div.style.setProperty("--rotation", `${i * 30}deg`);
+
+    const span = document.createElement("span");
+    span.textContent = brand;
+
+    div.appendChild(span);
+    clock.appendChild(div);
+});
+
+function setRotation(element, rotationRatio) {
+    element.style.setProperty('--rotation', rotationRatio * 360);
+}
+
+function updateClock() {
+    const now = new Date();
+
+    const secondsRatio = now.getSeconds() / 60;
+    const minutesRatio = (secondsRatio + now.getMinutes()) / 60;
+    const hoursRatio = (minutesRatio + now.getHours()) / 12;
+
+    setRotation(document.getElementById("second-hand"), secondsRatio);
+    setRotation(document.getElementById("minute-hand"), minutesRatio);
+    setRotation(document.getElementById("hour-hand"), hoursRatio);
+}
+
+// Smooth animation
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
+</body>
+</html>
